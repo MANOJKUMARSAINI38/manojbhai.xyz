@@ -101,7 +101,7 @@ app.get('/api/salon',async(req,res)=>{
 app.post("/api/appointments", async (req, res) => {
   const { salonId, date, time } = req.body;
 
-  console.log("📩 Appointment Request:", req.body);
+  console.log("📩 Appointment Request manoj:", req.body);
 
   if (!salonId || !date || !time) {
     return res.status(400).json({
@@ -112,7 +112,7 @@ app.post("/api/appointments", async (req, res) => {
 
   try {
     const result = await pool.query(
-      'INSERT INTO public."appointments" (salonId, date, time) VALUES ($1, $2, $3) RETURNING *',
+      'INSERT INTO public."appointments" (salonid, date, time) VALUES ($1, $2, $3) RETURNING *',
       [salonId, date, time]
     );
 
