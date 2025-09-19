@@ -112,7 +112,7 @@ app.post("/api/appointments", async (req, res) => {
 
   try {
     const result = await pool.query(
-      'INSERT INTO public."appointments" (salonid, date, time) VALUES ($1, $2, $3) RETURNING *',
+      'INSERT INTO public."appointments" (salonId, date, time) VALUES ($1, $2, $3) RETURNING *',
       [salonId, date, time]
     );
 
