@@ -97,47 +97,6 @@ app.get('/api/salon',async(req,res)=>{
 
 
 
-
-// app.post("/api/login", async (req, res) => {
-//   const { email, password } = req.body;
-//   try {
-//     const result = await pool.query(
-//       "SELECT * FROM signup WHERE email=$1 AND password=$2",
-//       [email, password]
-//     );
-
-//     if (result.rows.length === 1) {
-//       return res.status(200).json({ message: "Login Successful", user: result.rows[0] });
-//     } else {
-//       return res.status(401).json({ message: "Invalid email or password" });
-//     }
-//   } catch (error) {
-//     console.log("Database error:", error);
-//     return res.status(500).json({ message: "Internal server error" });
-//   }
-// });
-
-// // API route to handle appointment
-// app.post('/api/appointments', async (req, res) => {
-//   const { name, appointmentDate, appointmentTime } = req.body;
-
-//   if (!name || !appointmentDate || !appointmentTime) {
-//     return res.status(400).json({ error: 'Missing required fields' });
-//   }
-
-//   try {
-//     const result = await pool.query(
-//       'INSERT INTO appointments (name, appointment_date, appointment_time) VALUES ($1, $2, $3) RETURNING *',
-//       [name, appointmentDate, appointmentTime]
-//     );
-
-//     res.status(201).json({ message: 'Appointment booked', data: result.rows[0] });
-//   } catch (error) {
-//     console.error('Database insert error:', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
-
 // ✅ Appointment API
 app.post("/api/appointments", async (req, res) => {
   const { salonId, date, time } = req.body;
