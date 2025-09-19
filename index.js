@@ -138,6 +138,41 @@ app.get('/api/salon',async(req,res)=>{
 //   }
 // });
 
+// ✅ Appointment API
+app.post("/api/appointments", async (req, res) => {
+  const { salonId, date, time } = req.body;
+
+  console.log("📩 Appointment Request:", req.body);
+
+  if (!salonId || !date || !time) {
+    return res.status(400).json({
+      success: false,
+      message: "Missing required fields (salonId, date, time)"
+    });
+  }
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO public."appointments" (salonid, date, time) VALUES ($1, $2, $3) RETURNING *',
+      [salonId, date, time]
+    );
+
+    res.status(201).json({
+      success: true,
+      message: "Appointment booked successfully ✅",
+      appointment: result.rows[0]
+    });
+  } catch (error) {
+    console.error(" Database error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message
+    });
+  }
+});
+
+
 
 
 // Start server
