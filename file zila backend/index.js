@@ -94,6 +94,8 @@ app.get('/api/salon',async(req,res)=>{
 })
 
 
+//change
+
 app.post('/api/appointments',async(req,res)=>{
   const {salonId,date,time}=req.body
   try{
