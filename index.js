@@ -131,6 +131,16 @@ app.post("/api/appointments", async (req, res) => {
   }
 });
 
+app.get('/api/orders',async(req,res)=>{
+  try{
+    const result= await pool.query( ' SELECT * FROM public."appointment" ')
+      res.status(200).json({success:true,result:result.rows})
+  }catch(error){
+    console.error("error in getting list",error)
+    res.status(500).json({success:false,message:message.error})
+  }
+})
+
 
 
 
