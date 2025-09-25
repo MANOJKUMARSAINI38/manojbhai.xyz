@@ -325,7 +325,12 @@ app.post("/api/appointments", verifyToken, async (req, res) => {
 // ✅ Protected Orders API
 app.get("/api/orders", verifyToken, async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM public."appointments"');
+    const salonid = req.user.salonid; 
+    console.log("salonId",salonid)
+    const result = await pool.query(
+      'SELECT * FROM public."appointments" WHERE salonid = $1',
+      [salonid]
+    );
     res.status(200).json({ success: true, result: result.rows });
   } catch (error) {
     console.error("error in getting list", error);
