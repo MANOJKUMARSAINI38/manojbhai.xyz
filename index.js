@@ -326,7 +326,7 @@ app.post("/api/appointments", verifyToken, async (req, res) => {
 app.get("/api/orders", verifyToken, async (req, res) => {
   try {
     const salonid = req.user.salonid; 
-    console.log("salonId",salonid)
+   console.log("Decoded User:", req.user);
     const result = await pool.query(
       'SELECT * FROM public."appointments" WHERE salonid = $1',
       [salonid]
