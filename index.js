@@ -252,7 +252,7 @@ app.post("/api/login", async (req, res) => {
       const user = result.rows[0];
 
       // JWT Payload
-      const payload = { id: user.id, email: user.email };
+      const payload = { id: user.id, email: user.email , salonid: user.salonid};
 
       // Token Generate
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
@@ -263,7 +263,7 @@ app.post("/api/login", async (req, res) => {
         success: true,
         message: "Login Successful",
         token,
-        user: { id: user.id, email: user.email },
+        user: { id: user.id, email: user.email ,salonid: user.salonid},
       });
     } else {
       res
