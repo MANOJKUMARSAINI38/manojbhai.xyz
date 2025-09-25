@@ -171,6 +171,15 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
+console.log("Loaded DB Config:", {
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+});
+
+
 // Static folders
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/vedios", express.static(path.join(__dirname, "vedios")));
