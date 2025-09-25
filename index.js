@@ -308,7 +308,7 @@ app.get("/api/salon", async (req, res) => {
 
 // ✅ Protected Appointment API
 app.post("/api/appointments", verifyToken, async (req, res) => {
-  const { salonId, date, time } = req.body;
+  const { id, date, time } = req.body;
 
   console.log("📩 Appointment Request:", req.body);
   console.log("User from token:", req.user);
@@ -316,14 +316,14 @@ app.post("/api/appointments", verifyToken, async (req, res) => {
   if (!salonId || !date || !time) {
     return res.status(400).json({
       success: false,
-      message: "Missing required fields (salonId, date, time)",
+      message: "Missing required fields (id, date, time)",
     });
   }
 
   try {
     const result = await pool.query(
       'INSERT INTO public."appointments" (salonid, date, time) VALUES ($1, $2, $3) RETURNING *',
-      [salonId, date, time]
+      [id, date, time]
     );
 
     res.status(201).json({
