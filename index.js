@@ -236,6 +236,25 @@ app.post("/api/form", async (req, res) => {
   }
 });
 
+
+app.post("/api/formBusiness", async (req, res) => {
+  const { name, email, mobile, password } = req.body;
+
+  console.log("req.body", req.body);
+
+  try {
+    const result = await pool.query(
+      "INSERT INTO salon_profile (name, email, mobile, password) VALUES ($1, $2, $3, $4) RETURNING *",
+      [name, email, mobile, password]
+    );
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("Database error:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ✅ Login API with JWT
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
