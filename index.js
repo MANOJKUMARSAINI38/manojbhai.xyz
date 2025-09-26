@@ -386,7 +386,7 @@ app.post("/api/appointments", verifyToken, async (req, res) => {
 // ✅ Protected Orders API
 app.get("/api/orders", verifyToken, async (req, res) => {
   try {
-    const salonid = req.user.salonid; 
+    const salonid = req.user.id; 
    console.log("Decoded User:", req.user);
     const result = await pool.query(
       'SELECT * FROM public."appointments" WHERE salonid = $1',
