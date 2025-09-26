@@ -313,7 +313,7 @@ app.post("/api/appointments", verifyToken, async (req, res) => {
   console.log("📩 Appointment Request:", req.body);
   console.log("User from token:", req.user);
 
-  if (!salonId || !date || !time) {
+  if (!id || !date || !time) {
     return res.status(400).json({
       success: false,
       message: "Missing required fields (id, date, time)",
