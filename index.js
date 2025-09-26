@@ -392,7 +392,7 @@ app.get("/api/orders", verifyToken, async (req, res) => {
       'SELECT * FROM public."appointments" WHERE salonid = $1',
       [salonid]
     );
-    console.log("result",result)
+    console.log("result",result.rows)
     res.status(200).json({ success: true, result: result.rows });
   } catch (error) {
     console.error("error in getting list", error);
