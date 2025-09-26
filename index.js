@@ -312,6 +312,7 @@ app.post("/api/appointments", verifyToken, async (req, res) => {
 
   console.log("📩 Appointment Request:", req.body);
   console.log("User from token:", req.user);
+ 
 
   if (!id || !date || !time) {
     return res.status(400).json({
@@ -321,9 +322,10 @@ app.post("/api/appointments", verifyToken, async (req, res) => {
   }
 
   try {
+    const email = req.user.email;
     const result = await pool.query(
-      'INSERT INTO public."appointments" (salonid, date, time) VALUES ($1, $2, $3) RETURNING *',
-      [id, date, time]
+      'INSERT INTO public."appointments" (salonid, date, time,name) VALUES ($1, $2, $3,$4) RETURNING *',
+      [id, date, time,email]
     );
 
     res.status(201).json({
