@@ -295,6 +295,46 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
+
+app.post("/api/loginBusiness", async (req, res) => {
+  const { email, password } = req.body;
+
+  console.log("login", req.body);
+
+  try {
+    const result = await pool.query(
+      "SELECT * FROM salon_profile WHERE email = $1 AND password = $2",
+      [email, password]
+    );
+
+    if (result.rows.length > 0) {
+      const user = result.rows[0];
+
+      // JWT Payload
+      const payload = { id: user.id, email: user.email , salonid: user.salonid};
+
+      // Token Generate
+      const token = jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRES,
+      });
+
+      res.json({
+        success: true,
+        message: "Login Successful",
+        token,
+        user: { id: user.id, email: user.email ,salonid: user.salonid},
+      });
+    } else {
+      res
+        .status(401)
+        .json({ success: false, message: "Invalid email or password" });
+    }
+  } catch (err) {
+    console.error("Database error:", err.message);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // ✅ Public API (Salon List)
 app.get("/api/salon", async (req, res) => {
   try {
