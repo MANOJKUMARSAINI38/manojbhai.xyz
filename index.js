@@ -314,7 +314,7 @@ app.post("/api/syncUser", verifyFirebaseToken, async (req, res) => {
 
   try {
     await pool.query(
-      `INSERT INTO users (uid, email, mobile, address)
+      `INSERT INTO usersfirebase (uid, email, mobile, address)
        VALUES ($1, $2, $3, $4)
        ON CONFLICT (uid) DO UPDATE 
        SET mobile = EXCLUDED.mobile, address = EXCLUDED.address`,
