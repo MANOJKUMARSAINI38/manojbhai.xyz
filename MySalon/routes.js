@@ -4,6 +4,6 @@ const { getSalons } = require("./controller");
 const { verifyFirebaseToken } = require("../index");
 
 // ✅ /api/salons
-router.get("/salons", verifyFirebaseToken, getSalons);
+router.get("/api/salons", verifyFirebaseToken, getSalons);
 
 module.exports = router;
