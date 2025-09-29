@@ -276,6 +276,11 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
+// module.exports.pool = pool; // controller me use karne ke liye
+
+// Routes
+const salonRoutes = require("./MySalon/routes");
+
 // 🔑 Firebase Admin init
 const serviceAccount = require("./serviceAccountKey.json"); // Firebase service account JSON
 admin.initializeApp({
@@ -306,6 +311,8 @@ async function verifyFirebaseToken(req, res, next) {
     return res.status(401).json({ error: "Invalid Firebase token" });
   }
 }
+
+module.exports = { pool, admin, verifyFirebaseToken };
 
 // ✅ Sync Firebase user data with PostgreSQL
 app.post("/api/syncUser", verifyFirebaseToken, async (req, res) => {
@@ -340,16 +347,20 @@ app.get("/api/profile", verifyFirebaseToken, async (req, res) => {
 });
 
 
-app.get("/api/salons", verifyFirebaseToken, async (req, res) => {
-  const { uid } = req.user;
-  try {
-    const result = await pool.query(`SELECT * FROM salon_profile `);
-    res.json(result.rows || []);
-    console.log("resultsalonprofile", result.rows);  
-} catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
+// app.get("/api/salons", verifyFirebaseToken, async (req, res) => {
+//   const { uid } = req.user;
+//   try {
+//     const result = await pool.query(`SELECT * FROM salon_profile `);
+//     res.json(result.rows || []);
+//     console.log("resultsalonprofile", result.rows);  
+// } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+
+// ✅ Routes use karo
+app.use("/api", salonRoutes);
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running at http://0.0.0.0:${PORT}`);
