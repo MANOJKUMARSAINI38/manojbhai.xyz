@@ -343,7 +343,7 @@ app.get("/api/profile", verifyFirebaseToken, async (req, res) => {
 app.get("/api/salons", verifyFirebaseToken, async (req, res) => {
   const { uid } = req.user;
   try {
-    const result = await pool.query(`SELECT * FROM salon_profile WHERE uid=$1`, [uid]);
+    const result = await pool.query(`SELECT * FROM salon_profile `);
     res.json(result.rows[0] || {});
     console.log("resultsalonprofile", result.rows);  
 } catch (err) {
