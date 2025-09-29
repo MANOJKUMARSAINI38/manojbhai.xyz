@@ -339,6 +339,18 @@ app.get("/api/profile", verifyFirebaseToken, async (req, res) => {
   }
 });
 
+
+app.get("/api/salons", verifyFirebaseToken, async (req, res) => {
+  const { uid } = req.user;
+  try {
+    const result = await pool.query(`SELECT * FROM salon_profile WHERE uid=$1`, [uid]);
+    res.json(result.rows[0] || {});
+    console.log("resultsalonprofile", result.rows);  
+} catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running at http://0.0.0.0:${PORT}`);
 });
