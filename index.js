@@ -97,8 +97,8 @@ io.on("connection", (socket) => {
 
 
 
-  / POST /api/syncUser
-router.post("/syncUser", verifyFirebaseToken, async (req, res) => {
+
+app.post("/syncUser", verifyFirebaseToken, async (req, res) => {
   try {
     const { name, mobile, address } = req.body;
     const uid = req.user.uid;
