@@ -49,7 +49,7 @@ const { Pool } = require("pg");
 const salonRoutes = require("./MySalon/routes");
 const syncUser = require("./MySalon/routes");
 const serviceAccount = require("./serviceAccountKey.json");
-const { verifyFirebaseToken } = require("./middleware"); 
+// const { verifyFirebaseToken } = require("./middleware"); 
 
 const app = express();
 const PORT = process.env.PORT || 5000;
